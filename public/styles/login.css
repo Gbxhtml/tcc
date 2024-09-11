@@ -1,0 +1,48 @@
+form {
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+form .container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 35px;
+    font-size: medium;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    align-self: center;
+    user-select: none;
+    pointer-events: none;
+}
+
+form .container input {
+    padding: 20px;
+    width: 100%;
+    margin: 2px 0 10px;
+    outline: none;
+    border-radius: 5px;
+    border: 2px var(--primary) solid;
+}
+
+form .container input[type=submit] {
+    background-color: var(--primary);
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+}
+
+form a {
+    color: var(--primary);
+}
