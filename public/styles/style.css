@@ -23,11 +23,139 @@ body {
     display: flex;
 }
 
+.success {
+    display: block;
+    background-color: #10a35f;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 7px;
+}
+
+.error {
+    display: block;
+    background-color: #e6222f;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 7px;
+}
+
 .container {
-    width: 850px ;
     margin: 0 auto;
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 2px 2px 2px #ccc;
+    height: 100%;
 }
+
+.container-main {
+    display: flex;
+    flex: 1;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.main {
+    flex: 10;
+    padding: 15px;
+}
+
+.logout {
+    width: 100%;
+    display: block;
+    background-color: #fdc661;
+    border-radius: 6px;
+    padding: 15px 5px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+
+.sidebar {
+    background-color: #FEDFA5;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex: 2;
+}
+.menu {
+    width: 100%;
+}
+
+.profile a h2 {
+    color: #FB6D6D;
+}
+
+.sidebar ul li {
+    list-style: none;
+    margin: 5px;
+    
+}
+
+.sidebar ul li a {
+    display: block;
+    background-color: #fdc661;
+    width: 100%;
+    padding: 15px 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.sidebar .logo {
+    width: 100px;
+    height: 100px;
+}
+
+/* Home */ 
+.container-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.banner {
+    width: 100%;
+    height: 70vh;
+    flex: auto;
+    background-image: url('../images/banner.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+} 
+
+.cards {
+    padding-top: 50px;
+    width:  100%;
+    flex: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-between
+}
+
+.cards div a {
+    display: block;
+    text-decoration: none;
+    background-color: #10a35f;
+    padding: 50px;
+    font-size: 25px;
+    color: white;
+    border-radius: 10px;   
+}
+

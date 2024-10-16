@@ -19,18 +19,3 @@
 	define('USER', 'root');
 	define('PASSWORD', '');
 	define('DATABASE', 'compartilhaacao');
-
-	function verificarCargo($cargoPermitido) {
-		if (!isset($_SESSION['cargo']) || $_SESSION['cargo'] !== $cargoPermitido) {
-			header('Location: '.INCLUDE_PATH.'logout');
-			exit();
-		}
-	}
-
-	function verificarCargosPermitidos($cargosPermitidos) {
-		if (!isset($_SESSION['cargo']) || !in_array($_SESSION['cargo'], $cargosPermitidos)) {
-			header('Location: '.INCLUDE_PATH.'erro-permissao');
-			exit();
-		}
-	}
-?>

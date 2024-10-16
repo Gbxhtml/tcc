@@ -22,10 +22,28 @@
 
             <label for="password">Insira sua Senha:</label>
             <input id="password" name="password" type="password" placeholder="Senha">
+            <input type="hidden" name="acao">
 
             <input type="submit" value="Login">
             
             <br>
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+
+                    if (Usuario::loginUsuario($email, $password)) {
+                        if (isset($_POST['acao'])) {
+                            setcookie('email', $email, time() + (60*60*24*30), '/');
+                            setcookie('password', $password, time() + (60*60*24*30), '/');
+                        }
+                        header('Location: '.INCLUDE_PATH);
+                        exit();
+                    } else {
+                        echo '<p class="error">Nome de usuário ou senha incorretos.</p>';
+                    }
+                }
+            ?>
             <hr>
             <br>
 

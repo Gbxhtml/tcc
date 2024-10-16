@@ -12,10 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form method="post">
-    <br><br><br><br><br><br><br><br><br><br>      
+    <form method="post"> 
         <div class="container">
-            
             <img src="<?php echo INCLUDE_PATH; ?>public/images/logo.png" alt="Logo do sistema">    
             <h2>Faça seu Cadastro</h2>
             <br>
@@ -43,43 +41,58 @@
                 <div class="flex">
                     <div class="w-50">
                         <label for="bairro">Escreva seu Bairro:</label>
-                        <input class="metade" id="bairro" name="bairro" type="text" placeholder="Bairro">
+                        <input id="bairro" name="bairro" type="text" placeholder="Bairro">
                     </div>
 
                     <div class="w-50">
                         <label for="rua">Escreva sua Rua:</label>
-                        <input  id="rua" name="rua" type="text" placeholder="Rua">
+                        <input id="rua" name="rua" type="text" placeholder="Rua">
                     </div>
                 </div>
                 <div class="flex">
                     <div class="w-50">
                         <label for="numero">Escreva seu Numero de residencia:</label>
-                        <input  id="numero" name="numero" type="number" placeholder="Numero">
+                        <input id="numero" name="numero" type="number" placeholder="Numero">
                     </div>
                     <div class="w-50">
                         <label for="cep">Escreva seu CEP:</label>
-                        <input  id="cep" name="cep" type="cep" placeholder="Cep">
+                        <input id="cep" name="cep" type="cep" placeholder="Cep">
                     </div>
                 </div>
             </div>
+            <br>
+            <hr>
+            <br>
+            <h3>Informações pessoais:</h3>
+            <div class="info">
+                <label for="cpf">Escreva seu CPF:</label>
+                <input id="cpf" name="cpf" type="cpf" placeholder="CPF">
 
-            <input type="submit" value="Cadastrar">
+                <label for="phone">Escreva seu Telefone:</label>
+                <input id="phone" name="phone" type="tel" placeholder="Telefone">
+            </div>
+
+            <input type="submit" value="Cadastrar"> 
             
             <br>
             <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                print_r($_POST);
-
                 $nome = $_POST['nome'];
                 $email = $_POST['email'];
                 $senha = $_POST['senha'];
                 $estado = $_POST['estado'];
                 $cidade = $_POST['cidade'];
-
-                if (Usuario::cadastrarUsuario($nome, $senha, $email, $estado, $cidade)) { 
-                    echo '<p class="success">Cadastro bem-sucedido! <a href="login">Faça login</a>.</p>';
+                $numero = $_POST['numero'];
+                $cep = $_POST['cep'];
+                $cpf = $_POST['cpf'];
+                $phone = $_POST['phone'];
+            
+                $result = Usuario::cadastrarUsuario($nome, $senha, $email, $estado, $cidade, $numero, $cep, $cpf, $phone);
+            
+                if ($result['success']) {
+                    echo '<p class="success">' . $result['message'] . ' <a href="login">Faça login</a>.</p>';
                 } else {
-                    echo '<p class="error">Erro no cadastro. O email já está em uso.</p>';
+                    echo '<p class="error">' . $result['message'] . '</p>';
                 }
             }
             ?>
@@ -89,8 +102,6 @@
             <h3>Possui uma conta? <a href="login">Faça login</a></h3>
         </div>
     </form>
-
-    <script src="<?php echo INCLUDE_PATH; ?>public/scripts/estadoCidade.js"></script>
 </body>
 </html>
 

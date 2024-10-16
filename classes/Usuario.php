@@ -62,22 +62,60 @@ class Usuario {
         }
     }
 
-    public static function cadastrarUsuario($nome, $senha, $email) {
+    public static function cpfExists($cpf) {
         try {
-            if (self::userExists($email)) {
-                return false;
-            }
-
-            $cargo = "USUARIO";
-
-
-            $sql = MySql::conectar()->prepare("INSERT INTO `tb_usuario` (nome, senha, email, cargo) VALUES (?, ?, ?, ?)");
-            return $sql->execute(array($nome, $senha, $email, $cargo, ));
+            $sql = MySql::conectar()->prepare("SELECT `id` FROM `tb_usuario` WHERE cpf = ?");
+            $sql->execute(array($cpf));
+            return $sql->rowCount() > 0;
         } catch (PDOException $e) {
-            error_log("Erro ao cadastrar usuário: " . $e->getMessage());
+            error_log("Erro ao verificar existência do CPF: " . $e->getMessage());
             return false;
         }
     }
+    
+    public static function cadastrarUsuario($nome, $senha, $email, $estado, $cidade, $numero, $cep, $cpf, $phone) {
+        try {
+            // Verifica se o usuário ou o CPF já existe
+            if (self::userExists($email)) {
+                return ['success' => false, 'message' => 'O email já está em uso.'];
+            }
+            
+            if (self::cpfExists($cpf)) {
+                return ['success' => false, 'message' => 'O CPF já está cadastrado.'];
+            }
+        
+            // Definir o cargo padrão para "USUARIO"
+            $cargo = "USUARIO";
+        
+            // Conexão com o banco de dados
+            $pdo = MySql::conectar();
+        
+            // Inicia uma transação
+            $pdo->beginTransaction();
+        
+            $sql = $pdo->prepare("INSERT INTO `tb_endereco` (estado, cidade, numero, cep) VALUES (?, ?, ?, ?)");
+            $sql->execute(array($estado, $cidade, $numero, $cep));
+        
+            // Obtém o ID do endereço inserido
+            $id_endereco = $pdo->lastInsertId();
+        
+            $sql = $pdo->prepare("INSERT INTO `tb_usuario` (nome, senha, email, cargo, fone, endereco, cpf) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $sql->execute(array($nome, $senha, $email, $cargo, $phone, $id_endereco, $cpf));
+        
+            // Confirma a transação
+            $pdo->commit();
+        
+            return ['success' => true, 'message' => 'Cadastro bem-sucedido!'];
+        } catch (PDOException $e) {
+            // Se houver um erro, reverte a transação
+            $pdo->rollBack();
+        
+            // Log de erro
+            error_log("Erro ao cadastrar usuário: " . $e->getMessage());
+            return ['success' => false, 'message' => 'Erro ao cadastrar usuário. Tente novamente mais tarde.'];
+        }
+    }
+    
 
     public static function obterUsuario($email) {
         try {

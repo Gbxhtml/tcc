@@ -1,2 +1,64 @@
 [30-Sep-2024 21:11:33 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`compartilhaacao`.`tb_usuario`, CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`))
 [30-Sep-2024 21:26:03 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`compartilhaacao`.`tb_usuario`, CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`))
+[01-Oct-2024 20:07:49 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cpf' in 'field list'
+[01-Oct-2024 20:08:22 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[01-Oct-2024 20:10:14 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cpf' in 'field list'
+[01-Oct-2024 20:12:47 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[01-Oct-2024 20:12:47 America/Sao_Paulo] PHP Warning:  include(components/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 13
+[01-Oct-2024 20:12:47 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'components/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 13
+[01-Oct-2024 20:12:47 America/Sao_Paulo] PHP Warning:  include(components/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 17
+[01-Oct-2024 20:12:47 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'components/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 17
+[01-Oct-2024 20:14:26 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '4857' for key 'cpf'
+[01-Oct-2024 20:17:21 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '4857' for key 'cpf'
+[01-Oct-2024 20:20:41 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[01-Oct-2024 20:21:01 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[01-Oct-2024 20:21:15 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[01-Oct-2024 20:21:15 America/Sao_Paulo] PHP Warning:  include(components/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 13
+[01-Oct-2024 20:21:15 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'components/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 13
+[01-Oct-2024 20:21:15 America/Sao_Paulo] PHP Warning:  include(components/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 17
+[01-Oct-2024 20:21:15 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'components/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 17
+[01-Oct-2024 20:21:20 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[01-Oct-2024 20:26:18 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[01-Oct-2024 20:26:18 America/Sao_Paulo] PHP Warning:  include(components/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 13
+[01-Oct-2024 20:26:18 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'components/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 13
+[01-Oct-2024 20:26:18 America/Sao_Paulo] PHP Warning:  include(components/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 17
+[01-Oct-2024 20:26:18 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'components/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 17
+[01-Oct-2024 20:31:04 America/Sao_Paulo] PHP Warning:  include(pages/404.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 20
+[01-Oct-2024 20:31:04 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'pages/404.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 20
+[01-Oct-2024 20:31:11 America/Sao_Paulo] PHP Warning:  include(pages/404.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 20
+[01-Oct-2024 20:31:11 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'pages/404.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 20
+[01-Oct-2024 20:31:15 America/Sao_Paulo] PHP Warning:  include(pages/404.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\tcc\index.php on line 20
+[01-Oct-2024 20:31:15 America/Sao_Paulo] PHP Warning:  include(): Failed opening 'pages/404.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\tcc\index.php on line 20
+[01-Oct-2024 20:33:52 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[01-Oct-2024 20:33:52 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[01-Oct-2024 20:34:30 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[01-Oct-2024 20:34:30 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[01-Oct-2024 20:34:31 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[01-Oct-2024 20:34:31 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[01-Oct-2024 20:34:32 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[01-Oct-2024 20:34:32 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[07-Oct-2024 20:18:33 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[07-Oct-2024 20:18:33 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[07-Oct-2024 20:18:33 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[07-Oct-2024 20:19:04 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 22
+[07-Oct-2024 20:19:04 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 24
+[07-Oct-2024 20:20:06 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[07-Oct-2024 20:20:06 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[07-Oct-2024 20:20:13 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[07-Oct-2024 20:20:13 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[07-Oct-2024 20:20:22 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 23
+[07-Oct-2024 20:20:22 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 25
+[07-Oct-2024 20:21:01 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 26
+[07-Oct-2024 20:21:01 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 28
+[07-Oct-2024 20:21:59 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 26
+[07-Oct-2024 20:21:59 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 28
+[07-Oct-2024 20:26:47 America/Sao_Paulo] PHP Warning:  Undefined array key "cargo" in C:\xampp\htdocs\tcc\components\sidebar.php on line 27
+[07-Oct-2024 20:38:59 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[07-Oct-2024 20:46:26 America/Sao_Paulo] PHP Warning:  Undefined array key "cidade" in C:\xampp\htdocs\tcc\pages\cadastro.php on line 84
+[07-Oct-2024 20:46:33 America/Sao_Paulo] PHP Warning:  Undefined array key "cidade" in C:\xampp\htdocs\tcc\pages\cadastro.php on line 84
+[07-Oct-2024 20:49:54 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[07-Oct-2024 20:50:19 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[07-Oct-2024 20:53:41 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[12-Oct-2024 21:45:17 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[12-Oct-2024 21:54:46 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[16-Oct-2024 17:32:20 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
