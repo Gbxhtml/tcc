@@ -5,7 +5,7 @@ $url = isset($_GET['url']) ? $_GET['url'] : 'index';
 $url = basename($url);
 $pagePath = "pages/" . $url . ".php";
 
-$publicPages = ['login', 'cadastro'];
+$publicPages = ['login-instituicao','cadastro-instituicao', 'login', 'cadastro'];
 
 if (isset($_SESSION['login']) || in_array($url, $publicPages)) {
     if (file_exists($pagePath)) {

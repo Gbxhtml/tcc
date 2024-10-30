@@ -23,13 +23,17 @@ $url = isset($_GET['url']) ? $_GET['url'] : 'home';
 <div class="container-main">
     <div class="sidebar">
         <div class="profile">
-            <a href="perfil" style="text-decoration: none;">
+            <a href="perfil" style="width: 100%; text-decoration: none;">
+                <?php if ($_SESSION['tipo'] == 'instituicao') { ?>
+                    <img class="logo_inst" src="<?php echo $_SESSION['img']; ?>" alt="Imagem da Instituição - <?php echo $_SESSION['nome']; ?>">
+                <?php } ?>
                 <h2><?php echo $_SESSION['nome']; ?></h2>
                 <a class="logout" href="<?php echo INCLUDE_PATH; ?>logout.php" class="button"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
             </a>
         </div>
         <nav class="menu">
             <ul>
+            <li><a href="<?php echo INCLUDE_PATH; ?>"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li><a href="<?php echo INCLUDE_PATH; ?>"><i class="fa-solid fa-hand-holding-dollar"></i> Doar</a></li>
                 <li><a href="<?php echo INCLUDE_PATH; ?>"><i class="fa-solid fa-landmark"></i> Instituições</a></li>
             </ul>

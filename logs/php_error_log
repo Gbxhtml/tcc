@@ -62,3 +62,39 @@
 [12-Oct-2024 21:45:17 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
 [12-Oct-2024 21:54:46 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
 [16-Oct-2024 17:32:20 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[30-Oct-2024 15:08:03 America/Sao_Paulo] PHP Warning:  Undefined array key "ID" in C:\xampp\htdocs\tcc\classes\Usuario.php on line 49
+[30-Oct-2024 15:24:23 America/Sao_Paulo] Erro ao cadastrar instituição: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`compartilhaacao`.`tb_instituicao`, CONSTRAINT `endereco` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`))
+[30-Oct-2024 15:25:58 America/Sao_Paulo] PHP Warning:  Undefined variable $pdo in C:\xampp\htdocs\tcc\pages\instituicao.php on line 94
+[30-Oct-2024 15:25:58 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function beginTransaction() on null in C:\xampp\htdocs\tcc\pages\instituicao.php:94
+Stack trace:
+#0 C:\xampp\htdocs\tcc\index.php(15): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\tcc\pages\instituicao.php on line 94
+[30-Oct-2024 15:27:42 America/Sao_Paulo] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Instituicao::cadastrarInstituicao(), 8 passed in C:\xampp\htdocs\tcc\pages\instituicao.php on line 90 and exactly 13 expected in C:\xampp\htdocs\tcc\classes\Instituicao.php:76
+Stack trace:
+#0 C:\xampp\htdocs\tcc\pages\instituicao.php(90): Instituicao::cadastrarInstituicao('26', 'sadas@ifc.edu.b...', '1234567', 'Ong sla oq', '', '79.750.298/0001...', '48999270576', '')
+#1 C:\xampp\htdocs\tcc\index.php(15): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\tcc\classes\Instituicao.php on line 76
+[30-Oct-2024 16:00:50 America/Sao_Paulo] Senha incorreta para o email: sadas@ifc.edu.br
+[30-Oct-2024 16:01:48 America/Sao_Paulo] Senha incorreta para o email: ifc@gmail.com
+[30-Oct-2024 16:07:41 America/Sao_Paulo] PHP Warning:  Undefined array key "email" in C:\xampp\htdocs\tcc\components\sidebar.php on line 3
+[30-Oct-2024 16:07:41 America/Sao_Paulo] PHP Warning:  Undefined array key "nome" in C:\xampp\htdocs\tcc\components\sidebar.php on line 27
+[30-Oct-2024 16:08:27 America/Sao_Paulo] PHP Warning:  Undefined array key "email" in C:\xampp\htdocs\tcc\components\sidebar.php on line 3
+[30-Oct-2024 16:08:55 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[30-Oct-2024 16:09:22 America/Sao_Paulo] PHP Warning:  Undefined array key "nome" in C:\xampp\htdocs\tcc\components\sidebar.php on line 27
+[30-Oct-2024 19:19:01 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[30-Oct-2024 19:20:28 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[30-Oct-2024 19:24:50 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[30-Oct-2024 19:28:50 America/Sao_Paulo] Email não encontrado: conradtsamuel@gmail.com
+[30-Oct-2024 20:40:24 America/Sao_Paulo] Erro ao excluir usuário: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`compartilhaacao`.`tb_usuario`, CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`))
+[30-Oct-2024 20:42:54 America/Sao_Paulo] Erro ao excluir usuário: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`compartilhaacao`.`tb_usuario`, CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`))
+[30-Oct-2024 20:43:57 America/Sao_Paulo] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\tcc\classes\Usuario.php on line 73
+[30-Oct-2024 20:44:12 America/Sao_Paulo] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\tcc\classes\Usuario.php on line 73
+[30-Oct-2024 20:44:17 America/Sao_Paulo] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\tcc\classes\Usuario.php on line 73
+[30-Oct-2024 20:46:29 America/Sao_Paulo] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\tcc\classes\Usuario.php on line 73
+[30-Oct-2024 20:51:17 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') VALUES ('Samuel Conradt', 'conradtsamuel@gmail.com', '1234567', '004.857.84...' at line 1
+[30-Oct-2024 20:52:10 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') VALUES ('Samuel Conradt', 'conradtsamuel@gmail.com', '1234567', '004.857.84...' at line 1
+[30-Oct-2024 20:55:17 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+[30-Oct-2024 20:55:29 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+[30-Oct-2024 20:56:16 America/Sao_Paulo] Erro ao cadastrar usuário: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1

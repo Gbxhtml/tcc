@@ -1,7 +1,35 @@
 <?php
 
 class Usuario {
-
+    public static function excluirUsuario($idUsuario) {
+        try {
+            $pdo = MySql::conectar();
+            $pdo->beginTransaction();
+    
+            // Obtém o ID do endereço associado ao usuário
+            $sql = $pdo->prepare("SELECT endereco FROM `tb_usuario` WHERE id = ?");
+            $sql->execute([$idUsuario]);
+            $enderecoId = $sql->fetchColumn();
+    
+            // Exclui o endereço associado se existir
+            if ($enderecoId) {
+                $sql = $pdo->prepare("DELETE FROM `tb_endereco` WHERE id = ?");
+                $sql->execute([$enderecoId]);
+            }
+    
+            // Exclui o usuário
+            $sql = $pdo->prepare("DELETE FROM `tb_usuario` WHERE id = ?");
+            $sql->execute([$idUsuario]);
+    
+            $pdo->commit();
+            return true;
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            error_log("Erro ao excluir usuário: " . $e->getMessage());
+            return false;
+        }
+    }
+    
     public static function atualizarUsuario($nome, $senha) {
         try {
             $pdo = MySql::conectar();
@@ -9,12 +37,12 @@ class Usuario {
             // Verifica se uma nova senha foi fornecida
             if (!empty($senha)) {
                 // Atualiza com nova senha
-                $sql = $pdo->prepare("UPDATE `tb_usuario` SET nome = ?, senha = ?, WHERE email = ?");
+                $sql = $pdo->prepare("UPDATE `tb_usuario` SET nome = ?, senha = ? WHERE email = ?");
                 $sql->execute(array($nome, $senha, $_SESSION['email']));
             } else {
                 // Atualiza sem alterar a senha
-                $sql = $pdo->prepare("UPDATE `tb_usuario` SET nome = ?, WHERE email = ?");
-                $sql->execute(array($nome,  $_SESSION['email']));
+                $sql = $pdo->prepare("UPDATE `tb_usuario` SET nome = ? WHERE email = ?");
+                $sql->execute(array($nome, $_SESSION['email']));
             }
 
             return true;
@@ -35,30 +63,59 @@ class Usuario {
         }
     }
 
-    public static function loginUsuario($email, $senha) {
+    public static function login($email, $senha) {
         try {
-            $sql = MySql::conectar()->prepare("SELECT * FROM `tb_usuario` WHERE email = ?");
-            $sql->execute(array($email));
-            
-            if ($sql->rowCount() == 1) {
-                $info = $sql->fetch();
-                if ($senha === $info['senha']) {
-                    $_SESSION['login'] = true;
-                    $_SESSION['email'] = $email;
-                    $_SESSION['nome'] = $info['nome'];
-                    $_SESSION['user_id'] = $info['ID'];
-                    return true;
-                } else {
-                    error_log("Senha incorreta para o email: " . $email);
-                    return false;
-                }
-            } else {
-                error_log("Email não encontrado: " . $email);
-                return false;
+            $pdo = MySql::conectar();
+            $sql = $pdo->prepare("SELECT * FROM tb_usuario WHERE email = ?");
+            $sql->execute([$email]);
+            $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+    
+            // Verifica se o usuário foi encontrado
+            if ($usuario && $senha == $usuario['senha']) {
+                // Inicia a sessão e armazena os dados do usuário
+                $_SESSION['login'] = true;
+                $_SESSION['nome'] = $usuario['nome'];
+                $_SESSION['tipo'] = 'user';
+                $_SESSION['email'] = $usuario['email'];
+                return true;
             }
+            
+            return false; // Senha incorreta ou usuário não encontrado
         } catch (PDOException $e) {
             error_log("Erro ao realizar login: " . $e->getMessage());
             return false;
+        }
+    }
+    
+
+    public static function cadastrarUsuario($nome, $email, $senha, $estado, $cidade, $numero, $cep, $cpf, $fone) {
+        try {
+            $pdo = MySql::conectar();
+            
+            // Verifica se o email ou CPF já estão cadastrados
+            if (self::userExists($email)) {
+                return ['success' => false, 'message' => 'O email já está em uso.'];
+            }
+            if (self::cpfExists($cpf)) {
+                return ['success' => false, 'message' => 'O CPF já está em uso.'];
+            }
+
+            $pdo->beginTransaction();
+
+            // Cadastro do endereço
+            $sql = $pdo->prepare("INSERT INTO tb_endereco (estado, cidade, numero, cep) VALUES (?, ?, ?, ?)");
+            $sql->execute([$estado, $cidade, $numero, $cep]);
+            $idEndereco = $pdo->lastInsertId();
+
+            $sql = $pdo->prepare("INSERT INTO tb_usuario (nome, email, senha, cpf, endereco, fone) VALUES (?, ?, ?, ?, ?, ?)");
+            $sql->execute([$nome, $email, $senha, $cpf, $idEndereco, $fone]);
+
+            $pdo->commit();
+            return ['success' => true, 'message' => 'Cadastro realizado com sucesso!'];
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            error_log("Erro ao cadastrar usuário: " . $e->getMessage());
+            return ['success' => false, 'message' => 'Erro no cadastro.'];
         }
     }
 
@@ -72,50 +129,6 @@ class Usuario {
             return false;
         }
     }
-    
-    public static function cadastrarUsuario($nome, $senha, $email, $estado, $cidade, $numero, $cep, $cpf, $phone) {
-        try {
-            // Verifica se o usuário ou o CPF já existe
-            if (self::userExists($email)) {
-                return ['success' => false, 'message' => 'O email já está em uso.'];
-            }
-            
-            if (self::cpfExists($cpf)) {
-                return ['success' => false, 'message' => 'O CPF já está cadastrado.'];
-            }
-        
-            // Definir o cargo padrão para "USUARIO"
-            $cargo = "USUARIO";
-        
-            // Conexão com o banco de dados
-            $pdo = MySql::conectar();
-        
-            // Inicia uma transação
-            $pdo->beginTransaction();
-        
-            $sql = $pdo->prepare("INSERT INTO `tb_endereco` (estado, cidade, numero, cep) VALUES (?, ?, ?, ?)");
-            $sql->execute(array($estado, $cidade, $numero, $cep));
-        
-            // Obtém o ID do endereço inserido
-            $id_endereco = $pdo->lastInsertId();
-        
-            $sql = $pdo->prepare("INSERT INTO `tb_usuario` (nome, senha, email, cargo, fone, endereco, cpf) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $sql->execute(array($nome, $senha, $email, $cargo, $phone, $id_endereco, $cpf));
-        
-            // Confirma a transação
-            $pdo->commit();
-        
-            return ['success' => true, 'message' => 'Cadastro bem-sucedido!'];
-        } catch (PDOException $e) {
-            // Se houver um erro, reverte a transação
-            $pdo->rollBack();
-        
-            // Log de erro
-            error_log("Erro ao cadastrar usuário: " . $e->getMessage());
-            return ['success' => false, 'message' => 'Erro ao cadastrar usuário. Tente novamente mais tarde.'];
-        }
-    }
-    
 
     public static function obterUsuario($email) {
         try {
@@ -123,7 +136,6 @@ class Usuario {
             $sql = $pdo->prepare("SELECT * FROM `tb_usuario` WHERE email = ?");
             $sql->execute(array($email));
             $usuario = $sql->fetch(PDO::FETCH_ASSOC);
-
             return $usuario;
         } catch (PDOException $e) {
             error_log("Erro ao obter informações do usuário: " . $e->getMessage());

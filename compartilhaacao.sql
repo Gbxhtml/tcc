@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/10/2024 às 02:36
+-- Tempo de geração: 31/10/2024 às 00:58
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -72,6 +72,20 @@ CREATE TABLE `tb_endereco` (
   `numero` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `tb_endereco`
+--
+
+INSERT INTO `tb_endereco` (`id`, `estado`, `cidade`, `bairro`, `rua`, `cep`, `numero`) VALUES
+(1, '42', 'Sombrio', '', '', 88960000, 211),
+(4, '42', 'Sombrio', '', '', 88960000, 211),
+(5, '42', 'Sombrio', '', '', 88960000, 211),
+(6, '42', 'Sombrio', '', '', 88960000, 211),
+(8, '26', 'Barreiros', 'Raizera', 'Rua Mário Sant Helena ', 88960000, 211),
+(9, '26', 'Barreiros', 'Raizera', 'Rua Mário Sant Helena ', 88960000, 211),
+(10, '26', 'Barreiros', 'Raizera', 'Rua Mário Sant Helena ', 88960000, 211),
+(11, '42', 'Sombrio', 'Raizera', 'Rua Mário Sant Helena ', 88960000, 211);
+
 -- --------------------------------------------------------
 
 --
@@ -82,12 +96,13 @@ CREATE TABLE `tb_instituicao` (
   `id` int(11) NOT NULL,
   `endereco` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
+  `senha` varchar(30) NOT NULL,
   `nome_fantasia` varchar(30) NOT NULL,
   `descricao` varchar(255) NOT NULL,
-  `cnpj` int(11) NOT NULL,
+  `cnpj` varchar(20) NOT NULL,
   `fone` varchar(11) NOT NULL,
-  `contato` varchar(100) NOT NULL,
-  `obs` varchar(100) NOT NULL
+  `obs` varchar(100) NOT NULL,
+  `img` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -113,17 +128,12 @@ CREATE TABLE `tb_recebe` (
 
 CREATE TABLE `tb_usuario` (
   `id` int(11) NOT NULL,
-  `tipo` varchar(30) NOT NULL,
   `endereco` int(11) NOT NULL,
-  `obs` varchar(30) NOT NULL,
-  `situacao` varchar(200) NOT NULL,
-  `necessidade` text NOT NULL,
   `nome` varchar(30) NOT NULL,
-  `cargo` varchar(20) NOT NULL,
   `email` varchar(30) NOT NULL,
   `senha` varchar(30) NOT NULL,
   `fone` varchar(11) NOT NULL,
-  `cpf` int(11) NOT NULL
+  `cpf` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -156,8 +166,7 @@ ALTER TABLE `tb_endereco`
 --
 ALTER TABLE `tb_instituicao`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `cnpj` (`cnpj`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Índices de tabela `tb_recebe`
@@ -174,7 +183,7 @@ ALTER TABLE `tb_usuario`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `cpf` (`cpf`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `endereco` (`endereco`);
+  ADD KEY `tb_usuario_ibfk_1` (`endereco`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -196,13 +205,13 @@ ALTER TABLE `tb_doacao`
 -- AUTO_INCREMENT de tabela `tb_endereco`
 --
 ALTER TABLE `tb_endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `tb_instituicao`
 --
 ALTER TABLE `tb_instituicao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tb_recebe`
@@ -214,7 +223,7 @@ ALTER TABLE `tb_recebe`
 -- AUTO_INCREMENT de tabela `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restrições para tabelas despejadas
@@ -234,12 +243,6 @@ ALTER TABLE `tb_doacao`
   ADD CONSTRAINT `tb_doacao_ibfk_1` FOREIGN KEY (`id_instituicao`) REFERENCES `tb_instituicao` (`id`);
 
 --
--- Restrições para tabelas `tb_instituicao`
---
-ALTER TABLE `tb_instituicao`
-  ADD CONSTRAINT `endereco` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`);
-
---
 -- Restrições para tabelas `tb_recebe`
 --
 ALTER TABLE `tb_recebe`
@@ -250,7 +253,7 @@ ALTER TABLE `tb_recebe`
 -- Restrições para tabelas `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  ADD CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`);
+  ADD CONSTRAINT `tb_usuario_ibfk_1` FOREIGN KEY (`endereco`) REFERENCES `tb_endereco` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

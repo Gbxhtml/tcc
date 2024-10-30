@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompartilhaAção - Login</title>
+    <title>CompartilhaAção - Login Instituição</title>
     <link rel="stylesheet" href="<?php echo INCLUDE_PATH; ?>public/styles/style.css">
     <link rel="stylesheet" href="<?php echo INCLUDE_PATH; ?>public/styles/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,13 +14,13 @@
     <form method="POST">
         <div class="container">
             <img src="<?php echo INCLUDE_PATH; ?>public/images/logo.png" alt="Logo do sistema">    
-            <h2>Faça seu Login de Doador</h2>
+            <h2>Login de Instituição</h2>
             <br>
             <label for="email">Insira seu Email:</label>
             <input id="email" name="email" type="email" placeholder="Email" required>
             
-            <label for="password">Insira sua Senha:</label>
-            <input id="password" name="password" type="password" placeholder="Senha" required>
+            <label for="senha">Insira sua Senha:</label>
+            <input id="senha" name="senha" type="password" placeholder="Senha" required>
             
             <input type="submit" value="Login">
             <br>
@@ -28,10 +28,10 @@
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $email = $_POST['email'];
-                    $password = $_POST['password'];
-                    
+                    $senha = $_POST['senha'];
+
                     // Verificação de login
-                    if (Usuario::login($email, $password)) {
+                    if (Instituicao::login($email, $senha)) {
                         header('Location: ' . INCLUDE_PATH);
                         exit();
                     } else {
@@ -42,8 +42,8 @@
         
             <hr>
             <br>
-            <h3>Não possui uma conta? <a href="cadastro">Cadastre-se</a></h3>
-            <h3>É uma instituição? <a href="login-instituicao">Faça Login</a></h3>
+            <h3>Não possui uma conta de sua Instituição? <a href="cadastro-instituicao">Cadastre-se</a></h3>
+            <h3>É um doador? <a href="login">Faça login aqui</a></h3>
         </div>
     </form>
 </body>
