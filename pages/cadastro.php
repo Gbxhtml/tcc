@@ -17,6 +17,29 @@
             <img src="<?php echo INCLUDE_PATH; ?>public/images/logo.png" alt="Logo do sistema">    
             <h2>Faça seu Cadastro</h2>
             <br>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $nome = $_POST['nome'];
+                $email = $_POST['email'];
+                $senha = $_POST['senha'];
+                $estado = $_POST['estado'];
+                $cidade = $_POST['cidade'];
+                $numero = $_POST['numero'];
+                $rua = $_POST['rua'];
+                $bairro = $_POST['bairro'];
+                $cep = $_POST['cep'];
+                $cpf = $_POST['cpf'];
+                $phone = $_POST['phone'];
+            
+                $result = Usuario::cadastrarUsuario($nome, $email, $senha, $estado, $cidade, $numero, $cep, $cpf, $phone, $rua, $bairro);
+            
+                if ($result['success']) {
+                    echo '<p class="success">' . $result['message'] . ' <a href="login">Faça login</a>.</p>';
+                } else {
+                    echo '<p class="error">' . $result['message'] . '</p>';
+                }
+            }
+            ?>
             <label for="nome">Insira seu Nome:</label>
             <input id="nome" name="nome" type="text" placeholder="Seu nome aqui.">
             <label for="email">Insira seu Email:</label>
@@ -75,27 +98,6 @@
             <input type="submit" value="Cadastrar"> 
             
             <br>
-            <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $nome = $_POST['nome'];
-                $email = $_POST['email'];
-                $senha = $_POST['senha'];
-                $estado = $_POST['estado'];
-                $cidade = $_POST['cidade'];
-                $numero = $_POST['numero'];
-                $cep = $_POST['cep'];
-                $cpf = $_POST['cpf'];
-                $phone = $_POST['phone'];
-            
-                $result = Usuario::cadastrarUsuario($nome, $email, $senha, $estado, $cidade, $numero, $cep, $cpf, $phone);
-            
-                if ($result['success']) {
-                    echo '<p class="success">' . $result['message'] . ' <a href="login">Faça login</a>.</p>';
-                } else {
-                    echo '<p class="error">' . $result['message'] . '</p>';
-                }
-            }
-            ?>
             <hr>
             <br>
 

@@ -28,16 +28,22 @@ $url = isset($_GET['url']) ? $_GET['url'] : 'home';
                     <img class="logo_inst" src="<?php echo $_SESSION['img']; ?>" alt="Imagem da Instituição - <?php echo $_SESSION['nome']; ?>">
                 <?php } ?>
                 <h2><?php echo $_SESSION['nome']; ?></h2>
-                <a class="logout" href="<?php echo INCLUDE_PATH; ?>logout.php" class="button"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+                
+                <a style="margin-top: 3px;" class="logout" href="<?php echo INCLUDE_PATH; ?>perfil" class="button"><i class="fa-solid fa-user"></i> Perfil</a>
             </a>
         </div>
         <nav class="menu">
             <ul>
-            <li><a href="<?php echo INCLUDE_PATH; ?>"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li><a href="<?php echo INCLUDE_PATH; ?>"><i class="fa-solid fa-hand-holding-dollar"></i> Doar</a></li>
-                <li><a href="<?php echo INCLUDE_PATH; ?>"><i class="fa-solid fa-landmark"></i> Instituições</a></li>
+            <li>
+                <li><a href="<?php echo INCLUDE_PATH; ?>instituicao"><i class="fa-solid fa-landmark"></i> Instituições</a></li>
+                <?php if ($_SESSION['tipo'] == 'instituicao') { ?>
+                    <li><a href="<?php echo INCLUDE_PATH; ?>necessidades-inst"><i class="fa-solid fa-landmark"></i> Necessidades da Instituição</a></li>
+                <?php }?>
             </ul>
         </nav>
-        <img class="logo" src="<?php echo INCLUDE_PATH; ?>/public/images/logo.png" alt="Logo CompartilhaAção">
+        <div>
+            <img class="logo" src="<?php echo INCLUDE_PATH; ?>/public/images/logo.png" alt="Logo CompartilhaAção">
+            <a class="logout" href="<?php echo INCLUDE_PATH; ?>logout.php" class="button"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+        </div>
     </div>
     <div class="main">

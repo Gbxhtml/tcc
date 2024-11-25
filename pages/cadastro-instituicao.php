@@ -16,6 +16,29 @@
             <img src="<?php echo INCLUDE_PATH; ?>public/images/logo.png" alt="Logo do sistema">    
             <h2>Faça seu Cadastro como Instituição</h2>
             <br>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $nome = $_POST['nome'];
+                $email = $_POST['email'];
+                $senha = $_POST['senha'];
+                $estado = $_POST['estado'];
+                $cidade = $_POST['cidade'];
+                $bairro = $_POST['bairro'];
+                $rua = $_POST['rua'];
+                $numero = $_POST['numero'];
+                $cep = $_POST['cep'];
+                $cnpj = $_POST['cnpj'];
+                $phone = $_POST['phone'];
+
+                $result = Instituicao::cadastrarInstituicao($estado, $cidade, $bairro, $rua, $numero, $cep, $email, $senha, $nome, '', $cnpj, $phone, '');
+
+                if ($result['success']) {
+                    echo '<p class="success">' . $result['message'] . ' <a href="login-instituicao">Faça login</a>.</p>';
+                } else {
+                    echo '<p class="error">' . $result['message'] . '</p>';
+                }
+            }
+            ?>
             <label for="nome">Insira seu Nome Fantasia:</label>
             <input id="nome" name="nome" type="text" placeholder="Seu nome aqui." required>
             <label for="email">Insira seu Email:</label>
@@ -74,34 +97,10 @@
             <input type="submit" value="Cadastrar"> 
             
             <br>
-            <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $nome = $_POST['nome'];
-                $email = $_POST['email'];
-                $senha = $_POST['senha'];
-                $estado = $_POST['estado'];
-                $cidade = $_POST['cidade'];
-                $bairro = $_POST['bairro'];
-                $rua = $_POST['rua'];
-                $numero = $_POST['numero'];
-                $cep = $_POST['cep'];
-                $cnpj = $_POST['cnpj'];
-                $phone = $_POST['phone'];
-
-                // Chama a função de cadastro
-                $result = Instituicao::cadastrarInstituicao($estado, $cidade, $bairro, $rua, $numero, $cep, $email, $senha, $nome, '', $cnpj, $phone, '');
-
-                if ($result['success']) {
-                    echo '<p class="success">' . $result['message'] . ' <a href="login">Faça login</a>.</p>';
-                } else {
-                    echo '<p class="error">' . $result['message'] . '</p>';
-                }
-            }
-            ?>
             <hr>
             <br>
 
-            <h3>Possui uma conta? <a href="login">Faça login</a></h3>
+            <h3>Possui uma conta? <a href="login-instituicao">Faça login</a></h3>
         </div>
     </form>
 

@@ -161,6 +161,8 @@ body {
 
 .logo_inst {
     width: 250px;
+    height: 250px;
+    object-fit: cover; 
     border-radius: 10%;
 }
 
@@ -190,13 +192,18 @@ body {
 }
 
 .perfil .edit-profile input, 
-.perfil .edit-profile select {
+.perfil .edit-profile select,
+input[type=file],
+.img-input,
+textarea {
     width: 100%;
     padding: 14px;
     margin-bottom: 4px;
+    border: 2px solid #ccc;
 }
 
-.perfil .edit-profile input[type=submit] {
+.perfil .edit-profile input[type=submit], .perfil .edit-profile .actions a {
+    display: block;
     text-align: center;
     text-decoration: none;
     background-color: #FDC661;
@@ -206,7 +213,17 @@ body {
     font-weight: bold;
     font-size: medium;
     border: 0;
+    cursor: pointer;
     border-radius: 5px;
+}
+
+.voltar {
+    padding: 10px;
+    background-color: #10a35f;
+    color: white;
+    text-decoration: none;
+    display: block;
+    width: 50%;
 }
 
 .user-center {
@@ -230,7 +247,7 @@ body {
     cursor: pointer;
 }
 
-.confirmar-excluir {
+.confirmar {
     position: absolute;
     top: 0;
     left: 0;
@@ -243,26 +260,26 @@ body {
     display: none;
 }
 
-.confirmar-excluir .card {
+.confirmar .card {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
 }
 
-.confirmar-excluir .card .flex {
+.confirmar .card .flex {
     align-items: center;
 }
 
-.confirmar-excluir .card .flex .fechar {
+.confirmar .card .flex .fechar {
     margin-left: 10px;
     cursor: pointer;
 }
 
-.confirmar-excluir .card .flex .fechar span {
-    font-size: larger;
+.confirmar .card .flex .fechar span {
+    font-size: 30px;
 }
 
-.confirmar-excluir .card input[type=submit] {
+.confirmar .card input[type=submit], .confirm {
     width: 100%;
     text-align: center;
     text-decoration: none;
@@ -275,4 +292,84 @@ body {
     border-radius: 5px;
     border: 0;
     cursor: pointer;
+}
+
+.img-input { 
+    display: block;
+    width: 40% !important;
+}
+
+table.instituicoes {
+    padding: 10px;
+    border: 2px solid #FB6D6D;
+    overflow-y: scroll;
+}
+
+table.instituicoes thead {
+    background-color: #FB6D6D;
+    padding: 5px;
+    text-align: center;
+    color: white;
+}
+
+table.instituicoes tbody tr td {
+    padding: 10px;
+    text-align: center;
+}
+
+table.instituicoes tbody tr td a {
+    padding: 10px;
+    font-size: medium;
+    font-weight: bold;
+    background-color: #fdc661;
+    border: 0;
+    cursor: pointer;
+    border-radius: 2px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilo para a tabela de necessidades */
+table.instituicoes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #FB6D6D;
+}
+
+table.instituicoes thead {
+    background-color: #FB6D6D;
+    color: white;
+    text-align: center;
+}
+
+table.instituicoes th, table.instituicoes td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+table.instituicoes td img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+table.instituicoes td a.excluir {
+    background-color: #e6222f;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+table.instituicoes td a.excluir:hover {
+    background-color: #c1181f;
+}
+
+.item-necs input {
+    width: 100%;
+    padding: 10px;
 }

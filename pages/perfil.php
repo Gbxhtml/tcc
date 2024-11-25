@@ -1,99 +1,205 @@
+<?php 
+
+if ($_SESSION['tipo'] === 'user') {
+    $tipoPerfil = 'do Usuário';
+    $usuario = Usuario::obterUsuario($_SESSION['email']);
+    $endereco = $usuario['endereco'];
+    $usuario = $usuario['usuario'];
+} else {
+    $tipoPerfil = 'da Instituição';
+    $usuario = Instituicao::obterInstituicao($_SESSION['email']);
+    $endereco = $usuario['endereco'];
+    $usuario = $usuario['usuario'];
+}
+?>
 <div class="container">
     <div class="perfil">
+        <!-- Saudação -->
         <section class="saudacao">
-            <h2><i class="fa-solid fa-hands"></i> Olá, <?php echo $_SESSION['nome']?>, o que você gostaria de fazer?</h2>
+            <h2><i class="fa-solid fa-hands"></i> Olá, <?php 
+                        if ($_SESSION['tipo'] == 'user') {
+                               echo $usuario['nome'];
+                        } else {
+                                echo $usuario['nome_fantasia'];
+                        }
+                    ?>, o que você gostaria de fazer?</h2>
         </section>
-        <br>
-        <hr>
-        <br>
-
+        
+        <!-- Editar Perfil -->
         <section class="profile-edit">
-            <h2>Editar Perfil</h2>
-            <div class="edit-profile">
-                <label for="nome">O nome do perfil:</label>
-                <input type="text" name="nome" placeholder="Nome">
-                <label for="email">O email do perfil:</label>
-                <input type="email" name="email" placeholder="Email">
-                <label for="senha">A senha do perfil:</label>
-                <input type="password" name="senha" placeholder="Senha">
-                <br>
-                <hr>
-                <h3>Endereço:</h3>
-                <div class="endereco">
-                    <label for="estado">Selecione seu Estado:</label>
-                    <select id="estado" name="estado">
-                        <option value="">Selecione o Estado</option>
-                    </select>
+            <?php 
+            if (isset($_POST['atualizar'])) {
+                $senha = $_POST['senha'];
+                if ($_SESSION['tipo'] == 'user') {
+                    $correta = Usuario::verificarSenhaUsuario($usuario['id'], $senha);
+                } else {
+                    $correta = Instituicao::verificarSenhaInstituicao($usuario['id'], $senha);
+                }
+                $nome = $_POST['nome'];
+                $telefone = $_POST['phone'];
+                $senhaNova = $_POST['senhaNova'];
+                
+                $endereco = [
+                    'estado' => $_POST['estado'],
+                    'cidade' => $_POST['cidade'],
+                    'bairro' => $_POST['bairro'],
+                    'rua' => $_POST['rua'],
+                    'id' => $endereco['id']
+                ];
 
-                    <label for="cidade">Selecione sua Cidade:</label>
-                    <select id="cidade" name="cidade" disabled>
-                        <option value="">Selecione o Estado primeiro</option>
-                    </select>
+                if ($correta) {
+            
+                    if ($_SESSION['tipo'] == 'user') {
+                        $atualizado = Usuario::atualizarUsuario($nome, $telefone, $senhaNova, $endereco);
+                    } else {
+                        $descricao = $_POST['descricao'];
+                        $imagem = null;
+                
+                        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+                            $imagemTemp = $_FILES['imagem']['tmp_name'];
+                            $imagemNome = uniqid() . '-' . $_FILES['imagem']['name'];
+                            $caminhoDestino = 'uploads/' . $imagemNome;
+                
+                            if (move_uploaded_file($imagemTemp, $caminhoDestino)) {
+                                $imagem = $caminhoDestino;
+                            }
+                        }
+                
+                        $atualizado = Instituicao::atualizarInstituicao($nome, $descricao, $telefone, $senhaNova, $imagem, $endereco);
+                    }
+                
+                    if ($atualizado) {
+                        header("Location: ".INCLUDE_PATH."perfil");
+                        echo '<span class="success">Perfil atualizado com sucesso!</span>';
+                    } else {
+                        echo '<span class="error">ocorreu um erro!</span>';
+                    }
+                } else {
+                    echo '<span class="error">Senha Errada!</span>';
+                }
+            } ?>
+            <h2>Editar Perfil <?php echo $tipoPerfil; ?></h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="edit-profile">
+                    <label for="nome">Nome do perfil:</label>
+                    <?php 
+                        if ($_SESSION['tipo'] == 'user') {
+                            ?>
+                                <input type="text" name="nome" value="<?php echo $usuario['nome']; ?>">
+                            <?php
+                        } else {
+                            ?> 
+                                <input type="text" name="nome" value="<?php echo $usuario['nome_fantasia']; ?>">
+                                <label for="nome">Imagem da instituição:</label>
+                                <input class="img-input"  type="file" name="imagem" value="<?php echo $usuario['img']; ?>" >
 
-                    <div class="flex">
-                        <div class="w-50">
-                            <label for="bairro">Escreva seu Bairro:</label>
-                            <input id="bairro" name="bairro" type="text" placeholder="Bairro">
-                        </div>
+                                <label for="descricao">Descrição da instituição:</label>
+                                <textarea name="descricao"></textarea>
+                            <?php
+                        }
+                    ?>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" value="<?php echo $usuario['email']; ?>" readonly>
 
-                        <div class="w-50">
-                            <label for="rua">Escreva sua Rua:</label>
-                            <input id="rua" name="rua" type="text" placeholder="Rua">
+                    <label for="senhaNova">Nova Senha:</label>
+                    <input type="password" name="senhaNova" placeholder="Digite para alterar">
+                    
+                    <!-- Endereço -->
+                    <h3>Endereço:</h3>
+                    <div class="endereco">
+                        <label for="estado">Estado:</label>
+                        <select id="estado" name="estado">
+                            <option value="<?php echo $endereco['estado']; ?>" selected><?php echo $endereco['estado']; ?></option>
+                        </select>
+                        <label for="cidade">Cidade:</label>
+                        <select id="cidade" name="cidade">
+                            <option value="<?php echo $endereco['cidade']; ?>" selected><?php echo $endereco['cidade']; ?></option>
+                        </select>
+                        <label for="bairro">Bairro:</label>
+                        <input type="text" name="bairro" value="<?php echo $endereco['bairro']; ?>">
+                        <label for="rua">Rua:</label>
+                        <input type="text" name="rua" value="<?php echo $endereco['rua']; ?>">
+                    </div>
+                    
+                    <!-- Informações Pessoais -->
+                    <h3>Informações pessoais:</h3>
+                    <?php 
+                        if ($_SESSION['tipo'] == 'user') {
+                            ?>
+                                <label for="cpf">CPF:</label>
+                                <input type="text" name="cpf" value="<?php echo $usuario['cpf']; ?>" readonly> 
+                            <?php
+                        } else {
+                            ?> 
+                                <label for="cnpj">CNPJ:</label>
+                                <input type="text" name="cnpj" value="<?php echo $usuario['cnpj']; ?>" readonly> 
+                            <?php
+                        }
+                    ?>
+                    
+                    <label for="phone">Telefone:</label>
+                    <input type="tel" name="phone" value="<?php echo $usuario['fone']; ?>">
+
+                    <!-- Botões -->
+                    <div class="actions">
+                        <a onclick="alterar()">Salvar Alterações</a>
+                    </div>
+                    <div id="alterar" class="confirmar">
+                        <div class="card">
+                            <div class="flex">
+                                <h2>Deseja mesmo prosseguir?</h2>
+                                <a class="fechar" onclick="fecharAlterar()"><span><i class="fa-solid fa-circle-xmark"></i></span> </a>
+                            </div>
+                            <label for="senha">Insira sua senha:</label>
+                            <input type="senha" name="senha">
+                            <input type="hidden" name="atualizar">
+                            <input type="submit" value="Salvar Alterações">
                         </div>
                     </div>
                 </div>
-                <br>
-                <hr>
-                <br>
-                <h3>Informações pessoais:</h3>
-                <div class="info">
-                    <label for="cpf">Escreva seu CPF:</label>
-                    <input id="cpf" name="cpf" type="cpf" placeholder="CPF">
-
-                    <label for="phone">Escreva seu Telefone:</label>
-                    <input id="phone" name="phone" type="tel" placeholder="Telefone">
-                </div>
-
-                <input type="submit" value="Atualizar Perfil"> 
-            </div>
+            </form>
         </section>
-        <br>
-        <hr>
-        <br>
+
+        <!-- Central de Conta -->
         <section class="user">
-            <h2 style="text-align: center; margin-bottom: 15px">Central de Conta</h2>
+            <h2 style="text-align: center;">Central de Conta</h2>
             <div class="user-center">
                 <a href="logout.php">Sair</a>
-                <a onclick="excluir()">Excluir conta</a>
+                <a onclick="excluir()">Excluir Conta</a>
             </div>
         </section>
-
-        <div id="excluir" class="confirmar-excluir">
+        
+        <!-- Modal Excluir -->
+        <div id="excluir" class="confirmar">
             <div class="card">
                 <div class="flex">
-                    <div><h2>Deseja mesmo excluir? </h2></div>
-                    <div onclick="fecharExcluir()" class="fechar"><span><i class="fa-solid fa-circle-xmark"></i></span></div>
+                    <h2>Deseja mesmo excluir?</h2>
+                    <a class="fechar" onclick="fecharExcluir()"><span><i class="fa-solid fa-circle-xmark"></i></span> </a>
                 </div>
-                <p>Lembre-se, essa ação é irreversivel!</p>
+                <p>Lembre-se, essa ação é irreversível!</p>
                 <form method="post" action="excluir.php">
                     <input type="hidden" name="tipo" value="<?php echo $_SESSION['tipo']; ?>">
-                    <input type="submit" value="Desejo excluir">
+                    <input type="submit" value="Confirmar Exclusão">
                 </form>
+                
             </div>
         </div>
     </div>
 </div>
 
-
 <script src="<?php echo INCLUDE_PATH ?>public/js/buscaEstado.js"></script>
 <script>
     function excluir() {
-        const excluirModal = document.getElementById('excluir');
-        excluirModal.style.display = 'flex';
+        document.getElementById('excluir').style.display = 'flex';
+    }
+    function alterar() {
+        document.getElementById('alterar').style.display = 'flex';
+    }
+    function fecharAlterar() {
+        document.getElementById('alterar').style.display = 'none';
     }
     function fecharExcluir() {
-        const excluirModal = document.getElementById('excluir');
-        excluirModal.style.display = 'none';
+        document.getElementById('excluir').style.display = 'none';
     }
-
 </script>
